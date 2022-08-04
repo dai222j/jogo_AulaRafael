@@ -2,29 +2,25 @@ const grid = document.querySelector('.grid');
 const spanPlayer = document.querySelector('.player');
 const timer = document.querySelector('.timer');
 
-const caracteres = [
-  'bete',
-  'jerry',
-  'Jéssica',
-  'morto',
-  'pessoa-passaro',
-  'picle-rick',
-  'rique',
-  'verão',
-  'meeseeks',
-  'escrupuloso',
-];
+const characthers = [
+  'barbie1',
+  'barbie2',
+  'barbie3',
+  'barbie4',
+  'barbie5',
+  'barbie1',
+  'barbie2',
+  'barbie3',
+  'barbie4',
+  'barbie5',
+  
+]
 
-const createElement = (tag, className) => {
-  elemento const = document.createElement(tag);
-  element.className = className;
-  elemento de retorno;
-}
+let firstCard= ''
+let secondCard = ''
 
-deixe primeiroCartão = '';
-deixe segundoCartão = '';
 
-const checkFimJogo = () => {
+const checkEndGame = () => {
   const disabledCards = document.querySelectorAll('.disabled-card');
 
 if (disabledCards.length === 20) {
@@ -32,17 +28,16 @@ if (disabledCards.length === 20) {
     alert(`Parabéns, ${spanPlayer.innerHTML}! Seu tempo foi: ${timer.innerHTML}`);
   }
 }
-
 const checkCards = () => {
   const firstCharacter = firstCard.getAttribute('data-character');
   const secondCharacter = secondCard.getAttribute('data-character');
 
-if (primeiro Caracter === segundo Caractere) {
-firstCard.firstChild.classList.add('disabled-card');
+if ( firstCharacter ===  secondCharacter) {
+    firstCard.firstChild.classList.add('disabled-card');
     secondCard.firstChild.classList.add('disabled-card');
-primeiraCarta = '';
-    segundoCartão = '';
-checkFimJogo();
+    firstCard= '';
+    secondCard = '';
+checkEndGame();
   } else {
     setTimeout(() => {
 
@@ -50,63 +45,65 @@ checkFimJogo();
       firstCard.classList.remove('reveal-card');
       secondCard.classList.remove('reveal-card');
 
-      primeiraCarta = '';
-      segundoCartão = '';
+      firstCard = '';
+      secondCard = '';
     }, 500);
   }
 }
 
 const revelarCard = ({ target }) => {
 
-if (target.parentNode.className.includes('reveal-card')) {
-    Retorna;
+  if (target.parentNode.className.includes('reveal-card')) {
+      return
+    }
+  
+    if (firstCard === '') {
+  target.parentNode.classList.add('reveal-card');
+      firstCard = target.parentNode;
+  
+    } else if (secondCard === '') {
+  
+      target.parentNode.classList.add('reveal-card');
+      SecondCard = target.parentNode;
+  checkCards();
+  
+    }  
   }
+  
 
-  if (primeiroCartão === '') {
-target.parentNode.classList.add('reveal-card');
-    firstCard = target.parentNode;
-
-  } else if (secondCard === '') {
-
-    target.parentNode.classList.add('reveal-card');
-    SecondCard = target.parentNode;
-checkCards();
-
-  }  
-}
-
-const createCard = (caractere) => {
-const cartão = createElement('div', 'cartão');
-  const front = createElement('div', 'face front');
-  const back = createElement('div', 'face back');
-
-  front.style.backgroundImage = `url('../images/${character}.png')`;
-
-card.appendChild(front);
-  cartão.appendChild(voltar);
-
-  card.addEventListener('click', revelaCard);
-  card.setAttribute('data-character', caractere)
-cartão de retorno;
-}
-
-const cargaJogo = () => {
-  const duplicataCaracteres = [ ...caracteres, ...caracteres ];
-const shuffledArray = duplicataCaracteres.sort(() => Math.random() - 0,5);
-
-  shuffledArray.forEach((caractere) => {
-    const cartão = createCard(character);
-    grid.appendChild(cartão);
-  });
-}
-const startTimer = () => {
-this.loop = setInterval(() => {
-    const currentTime = +timer.innerHTML;
-    timer.innerHTML = currentTime + 1;
-  }, 1000);
-}
-window.onload = () => {
-  spanPlayer.innerHTML = localStorage.getItem('player');
-  startTimer();
-  carregar jogo();
-}
+  const createCard = (character) => {
+    const card = document.createElement('div');
+      const front = document.createElement('div', 'face front');
+      const back = document.createElement('div', 'face back');
+    
+      front.style.backgroundImage = `url('${character}.jfif')`;
+    
+    card.appendChild(front);
+      card.appendChild(back);
+    
+      card.addEventListener('click', revelarCard);
+      card.setAttribute('data-character', character)
+    return card;
+    }
+    
+    const loadGame = () => {
+      const duplicateCharacters = [ ...characthers, ... characthers ];
+    const shuffledArray = duplicateCharacters.sort(() => Math.random() - 0,5);
+    
+      shuffledArray.forEach((character) => {
+        const card = createCard(character);
+        grid.appendChild(card);
+      });
+    }
+    const startTimer = () => {
+    this.loop = setInterval(() => {
+        const currentTime = +timer.innerHTML;
+        timer.innerHTML = currentTime + 1;
+      }, 1000);
+    }
+    window.onload = () => {
+      document.querySelector('.player').innerHTML= localStorage.getItem('player');
+      // spanPlayer.innerHTML= localStorage.getItem('player');
+      startTimer();
+      loadGame();
+    }
