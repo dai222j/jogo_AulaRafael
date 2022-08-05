@@ -1,0 +1,47 @@
+.login-form {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    justify-content: center;
+}
+
+.login_header {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-bottom: 50px;
+}
+
+.login_header h1 {
+    color: deeppink;
+}
+
+.login_input {
+    border: 2px solid rgb(252, 235, 7);
+    border-radius: 15px;
+    color: deeppink;
+    font-size: 2em;
+    margin-bottom: 15px;
+    max-width: 300px;
+    outline: none;
+    padding: 15px;
+    width: 100%;
+}
+.login_button {
+    background-color:rgb(252, 235, 7) ;
+    border-radius: 8px;
+    color: deeppink;
+    cursor: pointer;
+    font-size: 2em;
+    max-width: 150px;
+    padding: 10px;
+    width: 100%;
+}
+
+.login_button:disabled {
+    background-color:deeppink  ;
+    color:rgb(252, 235, 7); ;
+    cursor: auto;
+}
